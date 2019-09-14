@@ -15,7 +15,7 @@ dishRouter.route('/')
     res.end('Will send all details of the dish to you!')
 })
 .post((req, res, next) => {
-    res.end('Will add the dish: ' + req.body.name + "with details: " +req.body.description)
+    res.end('Will add the dish: ' + req.body.name + " with details: " +req.body.description)
 })
 .put((req, res, next) => {
     res.statusCode = 403
@@ -24,5 +24,22 @@ dishRouter.route('/')
 .delete((req, res, next) => {
     res.end('Deleting all dish:')
 })
+
+dishRouter.route('/:dishID')
+.get((req, res, next) =>{
+    res.end('Will send details of the dish: '+req.params.dishID+' to you!')
+})
+.post((req, res, next) => {
+    res.statusCode = 403
+    res.end('Post operation not supported on /dishes '+req.params.dishID)
+})
+.put((req, res, next) => {
+    res.write('Updating the dish: '+req.params.dishID + '\n')
+    res.end('Will update the dish: '+ req.body.name + ' with details: '+req.body.description)
+})
+.delete((req, res, next) => {
+    res.end('Deleting dish: '+req.params.dishID)
+})
+
 
 module.exports = dishRouter
